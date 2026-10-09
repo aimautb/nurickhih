@@ -1,0 +1,477 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cloud Computing шпаргалка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column, sticky module nav, each module = diagram + short facts + decode chips; quiz at the end */
+:root{
+  --bg:#f5f7fa; --surface:#ffffff; --fg:#17202b; --muted:#5b6878; --line:#dbe2ea;
+  --accent:#2357c6; --accent-soft:#e6eefc; --amber:#c27a00; --amber-soft:#fdf2dc;
+  --good:#1f7a45; --good-soft:#e3f4ea; --bad:#b3362c; --bad-soft:#fbe6e4;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10151c; --surface:#18202a; --fg:#e7edf4; --muted:#9aa8b8; --line:#2a3542;
+  --accent:#7aa5ff; --accent-soft:#1d2b45; --amber:#f0b44a; --amber-soft:#3a2e17;
+  --good:#5fcf8d; --good-soft:#173324; --bad:#ff8a7f; --bad-soft:#3b1d1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c; --surface:#18202a; --fg:#e7edf4; --muted:#9aa8b8; --line:#2a3542;
+  --accent:#7aa5ff; --accent-soft:#1d2b45; --amber:#f0b44a; --amber-soft:#3a2e17;
+  --good:#5fcf8d; --good-soft:#173324; --bad:#ff8a7f; --bad-soft:#3b1d1a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:20px 80px}
+h1{font-size:clamp(26px,5vw,36px);font-weight:800;line-height:1.15;margin:8px 0 6px;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 14px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;margin-inline:-16px;padding-inline:16px}
+nav a{flex:none;font-size:13px;font-weight:600;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+nav a:hover,nav a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+section{padding-top:30px}
+h2{font-size:22px;font-weight:800;margin:0 0 4px;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+h2 .m{font-family:var(--f-mono);font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 7px;font-weight:700}
+h3{font-size:16px;margin:18px 0 6px}
+.one{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0 14px;font-weight:500}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;overflow-x:auto}
+.fig svg{display:block;width:100%;height:auto;min-width:560px}
+.fig svg text{font-family:var(--f-body)}
+ul.f{margin:6px 0;padding-left:20px}
+ul.f li{margin:4px 0}
+b,strong{font-weight:700}
+abbr,.ab{font-family:var(--f-mono);font-size:.88em;font-weight:700;color:var(--accent)}
+.dec{color:var(--muted);font-size:.9em}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+.tbl{overflow-x:auto;margin:10px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.glossary{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:10px}
+.g{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 11px;min-width:0}
+.g .ab{display:block;font-size:15px}
+.g span{font-size:13.5px;color:var(--muted)}
+.trap{background:var(--bad-soft);border-radius:8px;padding:8px 12px;margin:8px 0;font-size:14.5px}
+.trap b{color:var(--bad)}
+/* quiz */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px}
+.qtop{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:3px;margin:8px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.qq{font-size:18px;font-weight:700;margin:4px 0 12px;text-wrap:balance}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;text-align:left;padding:11px 13px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.no{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.why{margin-top:10px;font-size:14.5px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{font:inherit;font-weight:700;padding:9px 16px;border-radius:9px;border:0;background:var(--accent);color:var(--surface);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.done{text-align:center;padding:10px 0}
+.done .big{font-size:40px;font-weight:800;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+<h1>Cloud Computing: мидтерм за вечер</h1>
+<p class="lead">AWS Cloud Foundations, модули 1–6 и лабы 1–4. В каждом блоке: суть одной фразой, схема, факты и расшифровки сокращений. В конце тест.</p>
+
+<nav aria-label="Разделы">
+  <a href="#m1">1 Облако</a><a href="#m2">2 Деньги</a><a href="#m3">3 Инфраструктура</a><a href="#m4">4 Безопасность</a><a href="#m5">5 Сеть</a><a href="#m6">6 Compute</a><a href="#labs">Лабы</a><a href="#abbr">Сокращения</a><a href="#quiz">Тест</a>
+</nav>
+
+<!-- M1 -->
+<section id="m1">
+<h2><span class="m">M1</span>Что такое облако</h2>
+<div class="one">Облако это аренда чужих компьютеров через интернет. Берёшь сколько надо, платишь только за то, что используешь.</div>
+
+<div class="fig">
+<svg viewBox="0 0 640 210" role="img" aria-label="IaaS, PaaS, SaaS: что управляет клиент">
+  <g font-size="13" fill="var(--fg)">
+    <text x="80" y="22" text-anchor="middle" font-weight="700">On-premises</text>
+    <text x="240" y="22" text-anchor="middle" font-weight="700">IaaS</text>
+    <text x="400" y="22" text-anchor="middle" font-weight="700">PaaS</text>
+    <text x="560" y="22" text-anchor="middle" font-weight="700">SaaS</text>
+  </g>
+  <g font-size="12">
+    <!-- columns: rows App, Data, OS, Servers, Network/DC -->
+    <!-- onprem all you -->
+    <rect x="20" y="34" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="80" y="53" text-anchor="middle" fill="var(--fg)">Приложение</text>
+    <rect x="20" y="66" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="80" y="85" text-anchor="middle" fill="var(--fg)">Данные</text>
+    <rect x="20" y="98" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="80" y="117" text-anchor="middle" fill="var(--fg)">ОС</text>
+    <rect x="20" y="130" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="80" y="149" text-anchor="middle" fill="var(--fg)">Сервера</text>
+    <rect x="20" y="162" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="80" y="181" text-anchor="middle" fill="var(--fg)">Сеть, ДЦ</text>
+    <!-- IaaS -->
+    <rect x="180" y="34" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="240" y="53" text-anchor="middle" fill="var(--fg)">Приложение</text>
+    <rect x="180" y="66" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="240" y="85" text-anchor="middle" fill="var(--fg)">Данные</text>
+    <rect x="180" y="98" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="240" y="117" text-anchor="middle" fill="var(--fg)">ОС</text>
+    <rect x="180" y="130" width="120" height="28" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="240" y="149" text-anchor="middle" fill="var(--fg)">Сервера</text>
+    <rect x="180" y="162" width="120" height="28" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="240" y="181" text-anchor="middle" fill="var(--fg)">Сеть, ДЦ</text>
+    <!-- PaaS -->
+    <rect x="340" y="34" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="400" y="53" text-anchor="middle" fill="var(--fg)">Приложение</text>
+    <rect x="340" y="66" width="120" height="28" rx="5" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="400" y="85" text-anchor="middle" fill="var(--fg)">Данные</text>
+    <rect x="340" y="98" width="120" height="28" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="400" y="117" text-anchor="middle" fill="var(--fg)">ОС</text>
+    <rect x="340" y="130" width="120" height="28" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="400" y="149" text-anchor="middle" fill="var(--fg)">Сервера</text>
+    <rect x="340" y="162" width="120" height="28" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="400" y="181" text-anchor="middle" fill="var(--fg)">Сеть, ДЦ</text>
+    <!-- SaaS -->
+    <rect x="500" y="34" width="120" height="156" rx="5" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="560" y="108" text-anchor="middle" fill="var(--fg)">всё делает</text><text x="560" y="125" text-anchor="middle" fill="var(--fg)">провайдер</text>
+  </g>
+  <g font-size="12" fill="var(--muted)">
+    <rect x="20" y="198" width="12" height="10" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="38" y="207">управляешь ты</text>
+    <rect x="160" y="198" width="12" height="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="178" y="207">управляет AWS</text>
+  </g>
+</svg>
+</div>
+<ul class="f">
+  <li><span class="ab">IaaS</span> <span class="dec">(Infrastructure as a Service, инфраструктура как услуга)</span>: дают голый сервер. Пример: <b>EC2</b>.</li>
+  <li><span class="ab">PaaS</span> <span class="dec">(Platform as a Service, платформа)</span>: ты кидаешь только код. Пример: <b>Elastic Beanstalk</b>.</li>
+  <li><span class="ab">SaaS</span> <span class="dec">(Software as a Service, готовая программа)</span>: просто пользуешься. Пример: Gmail.</li>
+  <li>Модели развёртывания: <b>Cloud</b> (всё в облаке), <b>Hybrid</b> (облако + свой сервер), <b>On-premises</b> (всё своё, private cloud).</li>
+</ul>
+<h3>6 плюсов облака (часто спрашивают)</h3>
+<ul class="f">
+  <li><span class="ab">CapEx → OpEx</span> <span class="dec">(Capital Expense, разовые покупки → Operational Expense, текущие траты)</span>: не покупаешь железо заранее.</li>
+  <li>Экономия на масштабе: у AWS миллионы клиентов, поэтому дешевле.</li>
+  <li>Не надо угадывать мощность: добавил или убрал сервера за минуты.</li>
+  <li>Скорость: сервер за минуты, а не недели.</li>
+  <li>Не тратишь деньги на свой дата-центр (ДЦ).</li>
+  <li>Глобально за минуты: запустился в любой точке мира.</li>
+</ul>
+<p>Управлять AWS можно тремя способами: <b>Console</b> (сайт), <b>CLI</b> <span class="dec">(Command Line Interface, команды в терминале)</span>, <b>SDK</b> <span class="dec">(Software Development Kit, библиотеки для кода)</span>. Все они ходят через <b>API</b> <span class="dec">(Application Programming Interface)</span>.</p>
+<p><span class="ab">CAF</span> <span class="dec">(Cloud Adoption Framework, план перехода в облако)</span>: 6 перспектив. Бизнес: Business, People, Governance. Техника: Platform, Security, Operations.</p>
+</section>
+
+<!-- M2 -->
+<section id="m2">
+<h2><span class="m">M2</span>Деньги и счета</h2>
+<div class="one">Платишь за 3 вещи: вычисления, хранилище и исходящий трафик. Входящий трафик бесплатный.</div>
+<div class="fig">
+<svg viewBox="0 0 640 140" role="img" aria-label="За что платишь в AWS">
+  <g font-size="14" font-weight="700" fill="var(--fg)" text-anchor="middle">
+    <rect x="20" y="20" width="180" height="70" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="110" y="52">Compute</text>
+    <rect x="230" y="20" width="180" height="70" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="320" y="52">Storage</text>
+    <rect x="440" y="20" width="180" height="70" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="530" y="52">Data OUT</text>
+  </g>
+  <g font-size="12" fill="var(--muted)" text-anchor="middle">
+    <text x="110" y="72">сервера, Lambda</text><text x="320" y="72">S3, EBS</text><text x="530" y="72">трафик из AWS наружу</text>
+    <text x="320" y="122" fill="var(--good)" font-weight="700" font-size="13">Data IN (в AWS) = бесплатно</text>
+  </g>
+</svg>
+</div>
+<ul class="f">
+  <li>Чем больше берёшь и чем дольше резервируешь, тем дешевле. Reserved: <b>All Upfront</b> (всё вперёд) дешевле, чем Partial, а Partial дешевле, чем No Upfront.</li>
+  <li><span class="ab">TCO</span> <span class="dec">(Total Cost of Ownership, полная стоимость владения)</span>: сравнить, сколько стоит свой ДЦ против облака.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>Инструмент</th><th>Зачем</th></tr>
+<tr><td><b>Pricing Calculator</b></td><td>посчитать цену <b>до</b> запуска</td></tr>
+<tr><td><b>Budgets</b></td><td>поставить лимит и получить уведомление</td></tr>
+<tr><td><b>Cost Explorer</b></td><td>графики трат и прогноз</td></tr>
+<tr><td><b>Cost and Usage Report</b></td><td>самый подробный отчёт</td></tr>
+<tr><td><b>Billing Dashboard</b></td><td>общая картина счёта</td></tr>
+<tr><td><b>AWS Organizations</b></td><td>много аккаунтов в одном, один общий счёт (consolidated billing) и скидки за объём</td></tr>
+</table></div>
+<p><span class="ab">SCP</span> <span class="dec">(Service Control Policy)</span>: в Organizations ограничивает, что вообще можно делать аккаунтам.</p>
+<p>Support plans, от дешёвого: <b>Basic</b> (бесплатно) → <b>Developer</b> → <b>Business</b> → <b>Enterprise On-Ramp</b> → <b>Enterprise</b>. <span class="ab">TAM</span> <span class="dec">(Technical Account Manager, личный инженер)</span> есть только в Enterprise.</p>
+</section>
+
+<!-- M3 -->
+<section id="m3">
+<h2><span class="m">M3</span>Глобальная инфраструктура</h2>
+<div class="one">Регион это город, AZ это отдельные здания дата-центров в этом городе, edge location это маленькая точка кэша рядом с пользователем.</div>
+<div class="fig">
+<svg viewBox="0 0 640 220" role="img" aria-label="Region содержит несколько Availability Zone, edge locations снаружи">
+  <rect x="20" y="20" width="430" height="180" rx="14" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="36" y="44" font-size="14" font-weight="700" fill="var(--accent)">Region: us-east-1 (Вирджиния)</text>
+  <g font-size="13" text-anchor="middle" fill="var(--fg)">
+    <rect x="40" y="60" width="120" height="120" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="100" y="92" font-weight="700">AZ a</text><text x="100" y="114" font-size="12" fill="var(--muted)">1+ дата-центр</text><text x="100" y="132" font-size="12" fill="var(--muted)">своё питание</text>
+    <rect x="175" y="60" width="120" height="120" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="235" y="92" font-weight="700">AZ b</text><text x="235" y="114" font-size="12" fill="var(--muted)">1+ дата-центр</text><text x="235" y="132" font-size="12" fill="var(--muted)">своя сеть</text>
+    <rect x="310" y="60" width="120" height="120" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="370" y="92" font-weight="700">AZ c</text><text x="370" y="114" font-size="12" fill="var(--muted)">1+ дата-центр</text><text x="370" y="132" font-size="12" fill="var(--muted)">связаны быстро</text>
+  </g>
+  <g font-size="12" text-anchor="middle">
+    <circle cx="530" cy="60" r="22" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="530" y="64" fill="var(--fg)">Edge</text>
+    <circle cx="590" cy="120" r="22" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="590" y="124" fill="var(--fg)">Edge</text>
+    <circle cx="520" cy="170" r="22" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="520" y="174" fill="var(--fg)">Edge</text>
+    <text x="555" y="212" fill="var(--muted)">CloudFront, Route 53</text>
+  </g>
+</svg>
+</div>
+<ul class="f">
+  <li><span class="ab">AZ</span> <span class="dec">(Availability Zone, зона доступности)</span>: изолированные друг от друга ДЦ. Упал один, другие работают. Поэтому для надёжности кладём ресурсы <b>в 2+ AZ</b>.</li>
+  <li>Как выбрать регион (4 критерия): законы о данных, близость к пользователям (задержка), есть ли нужные сервисы, цена.</li>
+  <li><b>Edge location</b>: точка, где CloudFront хранит копию контента ближе к пользователю.</li>
+</ul>
+</section>
+
+<!-- M4 -->
+<section id="m4">
+<h2><span class="m">M4</span>Безопасность</h2>
+<div class="one">AWS отвечает за безопасность самого облака, ты за то, что положил в облако.</div>
+<div class="fig">
+<svg viewBox="0 0 640 200" role="img" aria-label="Shared responsibility model">
+  <rect x="20" y="16" width="600" height="84" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+  <text x="36" y="40" font-size="14" font-weight="700" fill="var(--amber)">ТЫ: security IN the cloud</text>
+  <text x="36" y="64" font-size="13" fill="var(--fg)">данные, IAM (кто что может), ОС и патчи на EC2, Security Groups, шифрование</text>
+  <text x="36" y="86" font-size="13" fill="var(--fg)">настройки приложений и сети</text>
+  <rect x="20" y="108" width="600" height="76" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="36" y="132" font-size="14" font-weight="700" fill="var(--accent)">AWS: security OF the cloud</text>
+  <text x="36" y="156" font-size="13" fill="var(--fg)">здания ДЦ, охрана, железо, сеть, гипервизор (то, на чём работают виртуалки)</text>
+  <text x="36" y="176" font-size="13" fill="var(--fg)">регионы, AZ, edge locations</text>
+</svg>
+</div>
+<div class="trap"><b>Ловушка:</b> ОС на EC2 патчишь ты. ОС под RDS патчит AWS. Чем "выше" сервис (RDS, Lambda), тем меньше твоей ответственности.</div>
+
+<h3>IAM: кто что может</h3>
+<p><span class="ab">IAM</span> <span class="dec">(Identity and Access Management, управление доступом)</span>.</p>
+<div class="fig">
+<svg viewBox="0 0 640 170" role="img" aria-label="IAM: user в group, policy прикреплена к group, role для EC2">
+  <g font-size="13" text-anchor="middle">
+    <rect x="20" y="20" width="110" height="44" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="75" y="47" fill="var(--fg)">User Аня</text>
+    <rect x="20" y="78" width="110" height="44" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="75" y="105" fill="var(--fg)">User Бек</text>
+    <rect x="200" y="46" width="140" height="50" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="270" y="76" fill="var(--fg)" font-weight="700">Group: Admins</text>
+    <rect x="420" y="46" width="200" height="50" rx="8" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="520" y="68" fill="var(--fg)" font-weight="700">Policy (JSON)</text><text x="520" y="86" fill="var(--muted)" font-size="11">Effect, Action, Resource</text>
+    <rect x="200" y="126" width="140" height="36" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="270" y="149" fill="var(--fg)">EC2 сервер</text>
+    <rect x="420" y="126" width="200" height="36" rx="8" fill="var(--good-soft)" stroke="var(--good)"/><text x="520" y="149" fill="var(--fg)">Role: доступ к S3</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none">
+    <path d="M130 42 L200 66"/><path d="M130 100 L200 78"/><path d="M340 71 L420 71"/><path d="M340 144 L420 144"/>
+  </g>
+  <g font-size="11" fill="var(--muted)"><text x="350" y="64">прикреплена</text><text x="350" y="138">берёт роль</text></g>
+</svg>
+</div>
+<ul class="f">
+  <li><b>User</b>: человек или программа, постоянный логин. <b>Group</b>: набор users, права даём группе. <b>Role</b>: временные права, например EC2 читает S3 без ключей. <b>Policy</b>: JSON-документ с правами.</li>
+  <li>По умолчанию всё запрещено. Явный <b>Deny</b> всегда сильнее Allow.</li>
+  <li><b>Least privilege</b>: давать минимум прав.</li>
+  <li>Доступ: <b>programmatic</b> (Access Key для CLI и SDK) и <b>console</b> (логин и пароль). <span class="ab">MFA</span> <span class="dec">(Multi-Factor Authentication, второй код с телефона)</span>.</li>
+  <li><b>Root user</b>: главный аккаунт. Включить MFA, удалить access keys, в работе не использовать. Только root меняет support plan и закрывает аккаунт.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>Сервис</th><th>Одной фразой</th></tr>
+<tr><td><b>CloudTrail</b></td><td>журнал: кто и что сделал (все API-вызовы)</td></tr>
+<tr><td><b>AWS Config</b></td><td>история настроек ресурсов и соответствие правилам</td></tr>
+<tr><td><b>KMS</b> <span class="dec">(Key Management Service)</span></td><td>ключи шифрования</td></tr>
+<tr><td><b>AWS Artifact</b></td><td>скачать отчёты о соответствии стандартам (compliance)</td></tr>
+<tr><td><b>Shield</b></td><td>защита от DDoS <span class="dec">(Distributed Denial of Service, завал запросами)</span></td></tr>
+<tr><td><b>WAF</b> <span class="dec">(Web Application Firewall)</span></td><td>фильтр плохих веб-запросов</td></tr>
+<tr><td><b>Inspector</b></td><td>ищет уязвимости на серверах</td></tr>
+<tr><td><b>Cognito</b></td><td>регистрация и логин пользователей в твоё приложение</td></tr>
+</table></div>
+</section>
+
+<!-- M5 -->
+<section id="m5">
+<h2><span class="m">M5</span>Сеть и VPC</h2>
+<div class="one">VPC это твоя личная закрытая сеть в AWS. Внутри неё подсети: публичные (есть выход в интернет) и приватные (нет).</div>
+<p><span class="ab">VPC</span> <span class="dec">(Virtual Private Cloud, виртуальная частная сеть)</span>. Такую схему мы строили в лабе 2.</p>
+<div class="fig">
+<svg viewBox="0 0 640 300" role="img" aria-label="Схема VPC: интернет, Internet Gateway, public subnet с NAT и веб-сервером, private subnet с базой">
+  <rect x="250" y="8" width="140" height="34" rx="17" fill="var(--surface)" stroke="var(--line)"/><text x="320" y="30" text-anchor="middle" font-size="13" fill="var(--fg)">Интернет</text>
+  <rect x="20" y="70" width="600" height="220" rx="14" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="34" y="92" font-size="13" font-weight="700" fill="var(--accent)">VPC 10.0.0.0/16</text>
+  <rect x="262" y="56" width="116" height="30" rx="6" fill="var(--accent)" /><text x="320" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="var(--surface)">Internet Gateway</text>
+  <path d="M320 42 L320 56" stroke="var(--muted)" stroke-width="2"/>
+  <rect x="40" y="108" width="270" height="164" rx="10" fill="var(--good-soft)" stroke="var(--good)"/>
+  <text x="54" y="128" font-size="13" font-weight="700" fill="var(--good)">Public subnet 10.0.1.0/24</text>
+  <text x="54" y="146" font-size="11" fill="var(--muted)">маршрут 0.0.0.0/0 → Internet Gateway</text>
+  <rect x="60" y="164" width="110" height="44" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="115" y="191" text-anchor="middle" font-size="12" fill="var(--fg)">Веб-сервер</text>
+  <rect x="185" y="164" width="110" height="44" rx="8" fill="var(--amber-soft)" stroke="var(--amber)"/><text x="240" y="191" text-anchor="middle" font-size="12" fill="var(--fg)">NAT Gateway</text>
+  <text x="54" y="236" font-size="11" fill="var(--muted)">Security Group: открыт порт 80 (HTTP)</text>
+  <rect x="330" y="108" width="270" height="164" rx="10" fill="var(--bad-soft)" stroke="var(--bad)"/>
+  <text x="344" y="128" font-size="13" font-weight="700" fill="var(--bad)">Private subnet 10.0.2.0/24</text>
+  <text x="344" y="146" font-size="11" fill="var(--muted)">маршрут 0.0.0.0/0 → NAT Gateway</text>
+  <rect x="380" y="164" width="170" height="44" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="465" y="191" text-anchor="middle" font-size="12" fill="var(--fg)">База данных</text>
+  <text x="344" y="236" font-size="11" fill="var(--muted)">из интернета сюда зайти нельзя</text>
+  <text x="344" y="254" font-size="11" fill="var(--muted)">наружу выходит только через NAT</text>
+  <path d="M380 186 L295 186" stroke="var(--amber)" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M240 164 L300 86" stroke="var(--muted)" stroke-width="1.5"/>
+</svg>
+</div>
+<ul class="f">
+  <li><span class="ab">CIDR</span> <span class="dec">(Classless Inter-Domain Routing, запись размера сети)</span>: /16 = 65 536 адресов, /24 = 256, /28 = 16. <b>Меньше число после слэша = больше сеть.</b></li>
+  <li>VPC: от <b>/16</b> (самая большая) до <b>/28</b> (самая маленькая). VPC на весь регион, подсеть (subnet) в <b>одной</b> AZ.</li>
+  <li>AWS забирает <b>5 IP</b> в каждой подсети: в /24 остаётся 256 − 5 = <b>251</b>.</li>
+  <li><b>IGW</b> <span class="dec">(Internet Gateway)</span>: дверь VPC в интернет. <b>NAT Gateway</b> <span class="dec">(Network Address Translation)</span>: даёт приватной подсети выйти наружу (скачать обновления), но внутрь никого не пускает. Стоит в public subnet.</li>
+  <li><b>Route table</b>: таблица "куда отправлять трафик". Main route table создаётся сама.</li>
+</ul>
+<h3>Security Group и NACL (спросят 100%)</h3>
+<div class="tbl"><table>
+<tr><th></th><th>Security Group</th><th>Network ACL</th></tr>
+<tr><td>Где стоит</td><td>на <b>сервере</b> (инстансе)</td><td>на <b>подсети</b></td></tr>
+<tr><td>Правила</td><td>только <b>allow</b></td><td><b>allow и deny</b>, по номерам</td></tr>
+<tr><td>Ответ на запрос</td><td><b>stateful</b>: ответ пропускается сам</td><td><b>stateless</b>: надо открыть и вход, и выход</td></tr>
+<tr><td>По умолчанию</td><td>вход закрыт, выход открыт</td><td>default NACL всё разрешает</td></tr>
+</table></div>
+<p><span class="dec">ACL = Access Control List, список правил доступа.</span></p>
+<h3>Остальное в сети</h3>
+<ul class="f">
+  <li><b>VPC Peering</b>: соединить 2 VPC. <b>Transit Gateway</b>: хаб для многих VPC.</li>
+  <li><b>VPN</b> <span class="dec">(Virtual Private Network)</span>: шифрованный туннель через интернет. <b>Direct Connect</b>: отдельный физический кабель от твоего ДЦ до AWS.</li>
+  <li><b>VPC Endpoint</b>: ходить в S3 без интернета. <b>Elastic IP</b>: постоянный публичный IP.</li>
+  <li><b>Route 53</b>: DNS <span class="dec">(Domain Name System, превращает site.com в IP)</span>. Политики: simple, weighted (по весам), <b>latency</b> (ближайший по задержке), <b>failover</b> (запасной сайт), geolocation (по стране), geoproximity, multivalue.</li>
+  <li><b>CloudFront</b>: CDN <span class="dec">(Content Delivery Network, раздача контента с ближайшей точки)</span>.</li>
+</ul>
+</section>
+
+<!-- M6 -->
+<section id="m6">
+<h2><span class="m">M6</span>Compute: сервера</h2>
+<div class="one">EC2 это виртуальный сервер в аренду. Lambda это код без сервера. Beanstalk это "закинул код, остальное сделает AWS".</div>
+<p><span class="ab">EC2</span> <span class="dec">(Elastic Compute Cloud)</span>. Что выбираешь при запуске (лаба 3):</p>
+<div class="fig">
+<svg viewBox="0 0 640 110" role="img" aria-label="Шаги запуска EC2">
+  <g font-size="12" text-anchor="middle" fill="var(--fg)">
+    <rect x="10" y="20" width="110" height="56" rx="9" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="65" y="44" font-weight="700">AMI</text><text x="65" y="62" fill="var(--muted)" font-size="11">шаблон ОС</text>
+    <rect x="135" y="20" width="110" height="56" rx="9" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="190" y="44" font-weight="700">Тип</text><text x="190" y="62" fill="var(--muted)" font-size="11">t3.micro</text>
+    <rect x="260" y="20" width="110" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/><text x="315" y="44" font-weight="700">Сеть + SG</text><text x="315" y="62" fill="var(--muted)" font-size="11">VPC, subnet</text>
+    <rect x="385" y="20" width="110" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/><text x="440" y="44" font-weight="700">Диск EBS</text><text x="440" y="62" fill="var(--muted)" font-size="11">storage</text>
+    <rect x="510" y="20" width="120" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/><text x="570" y="44" font-weight="700">User data</text><text x="570" y="62" fill="var(--muted)" font-size="11">скрипт при старте</text>
+  </g>
+  <text x="10" y="100" font-size="11" fill="var(--muted)">Синие обязательны: без AMI и типа инстанс не запустить.</text>
+</svg>
+</div>
+<ul class="f">
+  <li><span class="ab">AMI</span> <span class="dec">(Amazon Machine Image)</span>: шаблон с ОС и программами.</li>
+  <li>Название типа <b>t3.large</b>: t = семейство, 3 = поколение, large = размер.</li>
+  <li>Семейства: <b>t, m</b> обычные; <b>c</b> мощный процессор (Compute); <b>r, x</b> много памяти (RAM); <b>i, d</b> быстрые диски; <b>p, g</b> видеокарты (GPU) для ML и графики.</li>
+  <li>Состояния: pending → <b>running</b> → stopping → <b>stopped</b> → terminated (удалён навсегда). Сменить тип можно только после stop. От случайного удаления защищает <b>termination protection</b>.</li>
+</ul>
+<h3>Как платить за EC2</h3>
+<div class="tbl"><table>
+<tr><th>Модель</th><th>Когда</th><th>Скидка</th></tr>
+<tr><td><b>On-Demand</b></td><td>коротко, непредсказуемо, тесты</td><td>нет</td></tr>
+<tr><td><b>Reserved / Savings Plans</b></td><td>стабильно на 1–3 года</td><td>до ~72%</td></tr>
+<tr><td><b>Spot</b></td><td>задачу можно прервать (AWS заберёт за 2 мин)</td><td>до ~90%</td></tr>
+<tr><td><b>Dedicated Host</b></td><td>свой физический сервер, лицензии по серверу</td><td>дорого</td></tr>
+</table></div>
+<ul class="f">
+  <li><b>Lambda</b>: код по событию, без сервера (serverless). Платишь за запуски и время. Максимум <b>15 минут</b> на запуск.</li>
+  <li><b>Elastic Beanstalk</b>: закидываешь код (zip), AWS сам делает EC2, балансировщик, автомасштабирование.</li>
+  <li>Контейнеры (Docker): <b>ECS</b> <span class="dec">(Elastic Container Service)</span>, <b>EKS</b> <span class="dec">(Elastic Kubernetes Service)</span>, <b>Fargate</b> (контейнеры без своих серверов), <b>ECR</b> <span class="dec">(Elastic Container Registry, склад образов)</span>.</li>
+</ul>
+<h3>Диски (лаба 4)</h3>
+<ul class="f">
+  <li><span class="ab">EBS</span> <span class="dec">(Elastic Block Store)</span>: диск для одного сервера, в <b>той же AZ</b>. После stop данные остаются. Бэкап = <b>snapshot</b>, хранится в S3.</li>
+  <li><span class="ab">S3</span> <span class="dec">(Simple Storage Service)</span>: хранилище файлов-объектов, имя бакета уникально во всём мире, по умолчанию приватно.</li>
+  <li><span class="ab">EFS</span> <span class="dec">(Elastic File System)</span>: общая папка для многих серверов.</li>
+</ul>
+</section>
+
+<!-- LABS -->
+<section id="labs">
+<h2><span class="m">LAB</span>Что делали в лабах</h2>
+<div class="tbl"><table>
+<tr><th>Лаба</th><th>Что делали</th></tr>
+<tr><td><b>1 IAM</b></td><td>users и groups с политиками (EC2-Support, S3-Support, EC2-Admin), добавили users в группы, зашли под ними и проверили права</td></tr>
+<tr><td><b>2 VPC</b></td><td>VPC, public и private subnet в 2 AZ, Internet Gateway, NAT Gateway, route tables, Security Group (порт 80), веб-сервер в public</td></tr>
+<tr><td><b>3 EC2</b></td><td>запуск сервера с user data, termination protection, мониторинг, смена типа (сначала stop), увеличение диска</td></tr>
+<tr><td><b>4 EBS</b></td><td>создали диск в той же AZ, подключили, смонтировали, сделали snapshot и восстановили из него</td></tr>
+</table></div>
+</section>
+
+<!-- ABBR -->
+<section id="abbr">
+<h2><span class="m">ABC</span>Все сокращения</h2>
+<div class="glossary" id="gl"></div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+<h2><span class="m">TEST</span>Тест для подготовки</h2>
+<p class="lead">Как на мидтерме: выбираешь ответ, сразу видишь, правильно ли, и почему. Вопросы перемешиваются.</p>
+<div class="quiz" id="qz" aria-live="polite"></div>
+</section>
+</div>
+
+<script>
+const GL=[["AWS","Amazon Web Services"],["IaaS","Infrastructure as a Service"],["PaaS","Platform as a Service"],["SaaS","Software as a Service"],["CapEx","Capital Expense, разовые покупки"],["OpEx","Operational Expense, текущие траты"],["API","Application Programming Interface"],["CLI","Command Line Interface"],["SDK","Software Development Kit"],["CAF","Cloud Adoption Framework"],["TCO","Total Cost of Ownership"],["SCP","Service Control Policy"],["TAM","Technical Account Manager"],["AZ","Availability Zone"],["IAM","Identity and Access Management"],["MFA","Multi-Factor Authentication"],["KMS","Key Management Service"],["DDoS","Distributed Denial of Service"],["WAF","Web Application Firewall"],["VPC","Virtual Private Cloud"],["CIDR","Classless Inter-Domain Routing"],["IGW","Internet Gateway"],["NAT","Network Address Translation"],["NACL","Network Access Control List"],["SG","Security Group"],["VPN","Virtual Private Network"],["DNS","Domain Name System"],["CDN","Content Delivery Network"],["EC2","Elastic Compute Cloud"],["AMI","Amazon Machine Image"],["EBS","Elastic Block Store"],["S3","Simple Storage Service"],["EFS","Elastic File System"],["ECS","Elastic Container Service"],["EKS","Elastic Kubernetes Service"],["ECR","Elastic Container Registry"],["RDS","Relational Database Service"],["GPU","Graphics Processing Unit, видеокарта"]];
+document.getElementById('gl').innerHTML=GL.map(([a,b])=>`<div class="g"><span class="ab">${a}</span><span>${b}</span></div>`).join('');
+
+// [question, [options], correctIndex, why]
+const Q=[
+["Что такое cloud computing?",["Покупка своих серверов","Ресурсы через интернет по запросу с оплатой за использование","Бесплатный хостинг","Только хранение файлов"],1,"Pay-as-you-go: взял сколько надо, заплатил за использование."],
+["Elastic Beanstalk это какая модель?",["IaaS","SaaS","PaaS","On-premises"],2,"Ты даёшь только код, платформу делает AWS."],
+["EC2 это какая модель?",["IaaS","PaaS","SaaS","Hybrid"],0,"Даёт виртуальный сервер, ОС и всё выше на тебе."],
+["Облако + свой дата-центр вместе это",["Cloud","Hybrid","On-premises","SaaS"],1,"Hybrid deployment."],
+["Главный финансовый плюс облака",["CapEx вместо OpEx","OpEx вместо CapEx","Бесплатно навсегда","Только скидки"],1,"Не покупаешь железо заранее, платишь по факту (переменные траты)."],
+["За что AWS НЕ берёт деньги обычно?",["Compute","Storage","Входящий трафик (data in)","Исходящий трафик"],2,"Inbound data transfer бесплатный."],
+["Какой вариант Reserved Instances самый дешёвый?",["No Upfront","Partial Upfront","All Upfront","On-Demand"],2,"Чем больше платишь вперёд, тем больше скидка."],
+["Посчитать стоимость ДО запуска",["Cost Explorer","Pricing Calculator","Budgets","CloudTrail"],1,"Pricing Calculator оценивает будущую цену."],
+["Получить уведомление при превышении лимита трат",["AWS Budgets","Cost Explorer","Trusted Advisor","Config"],0,"Budgets: лимит + алерт."],
+["Сравнить стоимость своего ДЦ и облака",["SLA","TCO","SCP","CAF"],1,"TCO = Total Cost of Ownership."],
+["Один общий счёт на много аккаунтов",["IAM","AWS Organizations (consolidated billing)","Cognito","Cost Explorer"],1,"Organizations объединяет аккаунты и даёт скидки за объём."],
+["В каком support plan есть TAM?",["Basic","Developer","Business","Enterprise"],3,"Личный Technical Account Manager только в Enterprise."],
+["Availability Zone это",["Страна","Один или несколько изолированных дата-центров в регионе","Точка CloudFront","Подсеть"],1,"Своё питание, сеть; внутри региона."],
+["Как защититься от падения одного дата-центра?",["Взять сервер мощнее","Разнести ресурсы по нескольким AZ","Включить MFA","Купить Reserved"],1,"Multi-AZ = отказоустойчивость."],
+["Что НЕ является критерием выбора региона?",["Законы о данных","Близость к пользователям","Цвет логотипа","Доступность сервисов"],2,"4 критерия: законы, задержка, сервисы, цена."],
+["Edge locations нужны для",["Хранения бэкапов","CloudFront кэша ближе к пользователю","Запуска EC2","IAM"],1,"Меньше задержка у пользователя."],
+["Кто патчит ОС на EC2?",["AWS","Клиент","Никто","Microsoft"],1,"Security IN the cloud = ответственность клиента."],
+["Кто отвечает за физическую охрану дата-центров?",["Клиент","AWS","Оба","Провайдер интернета"],1,"Security OF the cloud = AWS."],
+["Кто патчит ОС базы в RDS?",["Клиент","AWS","Разработчик","Никто"],1,"RDS managed service, AWS делает патчи."],
+["Что сильнее в IAM?",["Allow","Явный Deny","Последняя политика","Политика группы"],1,"Явный Deny всегда побеждает."],
+["Какие права у нового IAM user по умолчанию?",["Все","Только чтение","Никаких","Админ"],2,"Implicit deny: пока не дали политику, ничего нельзя."],
+["Временные права для EC2, чтобы читать S3 без ключей",["IAM User","IAM Group","IAM Role","Access Key"],2,"Role даёт временные креды сервису."],
+["Как удобнее давать одинаковые права 20 людям?",["Каждому политику","Через IAM Group","Через root","Через MFA"],1,"Политика на группу, users в группу."],
+["Что сделать с root user сразу?",["Раздать пароль команде","Включить MFA и удалить access keys","Создать ещё один root","Ничего"],1,"И не использовать root в повседневной работе."],
+["Что может только root user?",["Запустить EC2","Сменить support plan","Создать S3","Открыть порт"],1,"Также закрыть аккаунт."],
+["Журнал всех API-вызовов (кто что сделал)",["CloudWatch","CloudTrail","Config","Inspector"],1,"CloudTrail = аудит действий."],
+["Скачать отчёты AWS о compliance",["AWS Artifact","KMS","Shield","WAF"],0,"Artifact хранит отчёты о соответствии стандартам."],
+["Защита от DDoS",["Shield","Cognito","KMS","Config"],0,"Shield."],
+["Самая маленькая подсеть в VPC",["/16","/24","/28","/32"],2,"Диапазон VPC: от /16 до /28."],
+["Сколько доступных IP в подсети /24?",["256","254","251","250"],2,"256 − 5 зарезервированных = 251."],
+["Чем public subnet отличается от private?",["Размером","Маршрутом в Internet Gateway","Ценой","Регионом"],1,"У public есть 0.0.0.0/0 → IGW."],
+["Сервер в private subnet должен скачать обновления. Что нужно?",["Internet Gateway напрямую","NAT Gateway в public subnet","Elastic IP","VPC Peering"],1,"NAT выпускает наружу, но внутрь не пускает."],
+["Подсеть может быть в нескольких AZ?",["Да","Нет, одна подсеть = одна AZ","Только в us-east-1","Только public"],1,"А вот VPC охватывает весь регион."],
+["Security Group работает на уровне",["Региона","Подсети","Инстанса (сервера)","Аккаунта"],2,"NACL на подсети, SG на сервере."],
+["Что stateless?",["Security Group","Network ACL","IAM","Route 53"],1,"NACL: надо открыть и вход, и выход."],
+["Где можно поставить правило DENY?",["Security Group","Network ACL","Оба","Нигде"],1,"SG только allow."],
+["Соединить две VPC",["VPC Peering","NAT Gateway","Direct Connect","CloudFront"],0,"Для многих VPC Transit Gateway."],
+["Отдельный физический канал из своего ДЦ в AWS",["VPN","Direct Connect","Internet Gateway","Route 53"],1,"VPN идёт через интернет, Direct Connect по своей линии."],
+["Route 53 политика: отправлять в регион с наименьшей задержкой",["Weighted","Latency","Failover","Simple"],1,"Latency-based routing."],
+["Route 53 политика: запасной сайт если основной упал",["Failover","Geolocation","Weighted","Multivalue"],0,"Failover routing."],
+["Что обязательно при запуске EC2?",["AMI и instance type","Только IAM role","Elastic IP","Lambda"],0,"Без шаблона ОС и типа сервер не создать."],
+["Скрипт, который выполняется при первом старте EC2",["AMI","User data","Snapshot","Tag"],1,"Например, установить веб-сервер."],
+["Семейство EC2 для задач с огромной памятью",["c","t","r","p"],2,"r и x = memory optimized."],
+["Семейство EC2 для машинного обучения на видеокартах",["p / g","t","m","i"],0,"Accelerated computing, GPU."],
+["Как сменить тип инстанса?",["Сразу на работающем","Stop → сменить тип → Start","Только terminate","Нельзя"],1,"Мы это делали в лабе 3."],
+["Задача обработки, которую можно прервать, нужно дёшево",["On-Demand","Spot","Dedicated Host","Reserved"],1,"Spot до 90% дешевле, но могут забрать."],
+["Сервер работает 24/7 три года",["Spot","On-Demand","Reserved / Savings Plans","Lambda"],2,"Стабильная нагрузка = резерв."],
+["Лицензия ПО привязана к физическому серверу",["Spot","Dedicated Host","Lambda","On-Demand"],1,"Свой физический сервер."],
+["Максимальное время одного запуска Lambda",["1 минута","15 минут","1 час","без лимита"],1,"15 минут."],
+["Что делает Elastic Beanstalk?",["Хранит файлы","Сам создаёт EC2, балансировщик и масштабирование по твоему коду","Шифрует данные","Это DNS"],1,"PaaS."],
+["Запуск контейнеров без управления своими серверами",["EC2","Fargate","EBS","ECR"],1,"Fargate = serverless для контейнеров."],
+["EBS диск можно подключить к серверу в другой AZ?",["Да","Нет, только в той же AZ","Только в другом регионе","Только к Lambda"],1,"Перенос через snapshot."],
+["Где хранятся EBS snapshots?",["На том же диске","В S3","В IAM","В RDS"],1,"В Amazon S3."],
+["Общая файловая система для нескольких EC2",["EBS","EFS","S3 Glacier","AMI"],1,"EFS."],
+["Что значит AZ?",["Amazon Zone","Availability Zone","Access Zone","Auto Zone"],1,"Зона доступности."],
+["Что значит VPC?",["Virtual Private Cloud","Very Private Computer","Virtual Public Cloud","VPN Cloud"],0,"Виртуальная частная сеть."],
+["Что значит IAM?",["Internet Access Manager","Identity and Access Management","Instance Auto Mode","IP Address Map"],1,"Управление доступом."],
+["Что значит EBS?",["Elastic Block Store","Elastic Backup Service","EC2 Boot System","Easy Bucket Storage"],0,"Блочный диск."],
+];
+let order=[],i=0,score=0,answered=false;
+const box=document.getElementById('qz');
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function start(){order=shuffle(Q.map((_,k)=>k));i=0;score=0;render()}
+function render(){
+  if(i>=order.length){const p=Math.round(score/order.length*100);
+    box.innerHTML=`<div class="done"><div class="big">${score} / ${order.length}</div><p>${p}% ${p>=70?'— сдаёшь, проходной 70%':'— ниже 70%, перечитай схемы выше и пройди ещё раз'}</p><div class="row" style="justify-content:center"><button class="btn" id="again">Пройти заново</button></div></div>`;
+    document.getElementById('again').onclick=start;return}
+  const [q,opts,c,why]=Q[order[i]];answered=false;
+  const idx=shuffle(opts.map((_,k)=>k));
+  box.innerHTML=`<div class="qtop"><span>Вопрос ${i+1} из ${order.length}</span><span>Верно: ${score}</span></div><div class="bar"><i style="width:${i/order.length*100}%"></i></div>
+  <div class="qq">${q}</div><div class="opts">${idx.map(k=>`<button class="opt" data-k="${k}">${opts[k]}</button>`).join('')}</div><div class="why" id="why"></div><div class="row" id="nx"></div>`;
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(answered)return;answered=true;const k=+b.dataset.k;
+    box.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.k===c)x.classList.add('ok')});
+    if(k===c)score++;else b.classList.add('no');
+    document.getElementById('why').textContent=(k===c?'Верно. ':'Неверно. ')+why;
+    const n=document.getElementById('nx');n.innerHTML=`<button class="btn" id="next">${i+1<order.length?'Дальше':'Результат'}</button>`;
+    const nb=document.getElementById('next');nb.onclick=()=>{i++;render()};nb.focus();
+  });
+}
+start();
+</script>
+
+</body></html>
